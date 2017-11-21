@@ -107,6 +107,7 @@ git status
 git add a.txt
 git log
 git log --pretty=oneline
+git reflog 记录来每一次命令
 git reset --hard comit_id
 git reset --hard HEAD^ 回退到上一版本
 git config --global core.autocrlf false
