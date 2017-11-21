@@ -97,4 +97,18 @@ git branch -D bobworks //如果我检查了bob的工作后很不满意，就可�
 git pull //不用加任何参数，因为当初clone的时候，git已经记住了我（rocrocket）的工作目录，它会直接找到我的目录来取。
 
 
+git init
+git commit -m ""
+git status
+git add a.txt
+git log
+git log --pretty=oneline
+git reset --hard comit_id
+git reset --hard HEAD^ 回退到上一版本
+git config --global core.autocrlf false
+git checkout -- a.txt 丢弃工作区修改
+对已添加到暂存区的修改作丢弃
+git reset HEAD a.txt 把暂存区的修改丢弃，工作区不变。
+git checkout -- a.txt 把工作区的修改丢弃
+
 
