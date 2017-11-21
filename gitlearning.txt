@@ -33,5 +33,68 @@ g --pretty=oneline --abbrev-commit
 可以推送pull request给官方仓库来贡献代码
 
 
+独立开发者的最大特点就是他们不需要和其他人来交换补丁，而且只在一个独立的固定的git仓库中工作。
+下面这些命令将可以帮助你完成日常工作：
+git-show-branch：可以显示你当前所在的分支以及提交记录。
+git-log：显示提交日志
+git-checkout或者git-branch：用于切换日志
+git-add：用于将修改内容加入到index文件中
+git-diff和git-status：用于显示开发者所做的修改
+git-commit：用于提交当前修改到git仓库。
+git-reset和git-checkout：用于撤销某些修改
+git-merge：用于合并两个分支
+git-rebase：用于维护topic分支（此处我也不太懂，等完成git学习后转过头来会关注此问题）
+git-tag：用于标记标签。
+1）获得帮助可以使用类似man git-****的命令格式：想获得关于commit命令的帮助，则man git-commit想获得关于pull命令的帮助，则man git-pull想获得关于merge命令的帮助，则man git-merge以此类推
+2）任何人在使用git之前，都要提交简单的个人信息，以便git区分不同的提交者身份。
+git config –global user.name “your name”
+git config –global user.email yourname@example.com
+3）想新开启一个项目，应该先建立一个目录，例如名为myproject，然后所有的项目开发内容都在此目录下进行。
+cd myproject
+git init
+git add .
+git commit //这个步骤会自动进入编辑状态，要求提交者输入有关本次提交的“开发信息”
+至此，一个新项目就诞生了，第一个开发信息（开发日志）也随之诞生。
+4）如果改进了项目源代码，并且到了开发者认为“应该再次记录开发信息”的时候，则提交“工作成果”。
+git commit -a //这是一个偷懒的命令，相当于git add .; git commit;
+5）想检查到目前为止对源码都做了哪些修改（相对于本次工作刚开始之时）：
+git diff //这个命令只在git add之前使用有效。如果已经add了，那么此命令输出为空
+git diff –cached //这个命令在git add之后在git commit之前有效。
+git status //这个命令在git commit之前有效，表示都有哪些文件发生了改动
+6）想查看自项目开启到现在的所有开发日志
+git log
+git log -p //会输出非常详细的日志内容，包括了每次都做了哪些源码的修改
+7）开启一个试验分支(experimental)，如果分支开发成功则合并到主分支（master），否则放弃该试验分支。
+git branch experimental //创建一个试验分支，名称叫experimental
+git branch //显示当前都有哪些分支，其中标注*为当前所在分支
+git checkout experimental //转移到experimental分支
+（省略数小时在此分支上的开发过程）…如果分支开发成功：
+git commit -a //在experimental分支改进完代码之后用commit在此分支中进行提交
+git checkout master //转移回master分支
+git merge experimental //经证实分支开发成功，将exerimental分支合并到主分支
+git commit -a //彻底完成此次分支合并，即提交master分支
+git branch -d experimental //因为experimental分支已提交，所以可安全删除此分支
+如果分支开发失败：
+git checkout master
+git branch -D experimental //由于分支被证明失败，因此使用-D来放弃并删除该分支
+8）随时查看图形化分支信息。
+gitk
+9）当合作伙伴bob希望改进我（rocrocket）的工作成果，则：
+bob$git clone /home/rocrocket/project myrepo //此命令用于克隆我的工作到bob的myrepo目录下。请注意，此命令有可能会因为/home/rocrocket的目录权限问题而被拒绝，解决方法是chmod o+rx /home/rocrocket。
+（省略bob数小时的开发过程）…
+bob$git commit -a //bob提交自己的改进成果到自己的git仓库中，并口头告知我（rocrocket）他已经完成了工作。
+我如果非常非常信任bob的开发能力：
+cd /home/rocrocket/project
+git pull /home/bob/myrepo //pull命令的意思是从远端git仓库中取出(git-fetch)修改的代码，然后合并(git-merge)到我（rocrocket）的项目中去。读者要记住一个小技巧，那就是“git pull .”命令，它和git merge的功能是一样的，以后完全可以用git pull .来代替git merge哦！请注意，git-pull命令有可能会因为/home/bob的目录权限问题而被拒绝，解决方法是chmod o+rx /home/bob。
+如果我不是很信任bob的开发能力：
+cd /home/rocrocket/project
+git fetch /home/bob/myrepo master:bobworks //此命令意思是提取出bob修改的代码内容，然后放到我（rocrocket）工作目录下的bobworks分支中。之所以要放到分支中，而不是master中，就是要我先仔仔细细看看bob的开发成果，如果我觉得满意，我再merge到master中，如果不满意，我完全可以直接git branch -D掉。
+git whatchanged -p master..bobworks //用来查看bob都做了什么
+git checkout master //切换到master分区
+git pull . bobworks //如果我检查了bob的工作后很满意，就可以用pull来将bobworks分支合并到我的项目中了
+git branch -D bobworks //如果我检查了bob的工作后很不满意，就可以用-D来放弃这个分支就可以了
+过了几天，bob如果想继续帮助我开发，他需要先同步一下我这几天的工作成果，只要在其当初clone的myrepo目录下执行git pull即可：
+git pull //不用加任何参数，因为当初clone的时候，git已经记住了我（rocrocket）的工作目录，它会直接找到我的目录来取。
+
 
 
