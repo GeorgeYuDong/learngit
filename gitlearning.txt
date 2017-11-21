@@ -115,5 +115,6 @@ git checkout -- a.txt 丢弃工作区修改
 对已添加到暂存区的修改作丢弃
 git reset HEAD a.txt 把暂存区的修改丢弃，工作区不变。
 git checkout -- a.txt 把工作区的修改丢弃
+git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
 
 
