@@ -119,3 +119,16 @@ git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新�
 
 git reset --hard 3628164 回退到指定commit_id
 
+下载整个目录，包括子目录代码如下:
+git clone --recursive git://github.com/Valloric/YouCompleteMe
+git submodule update --init --recursive
+
+
+操作远程仓库，需要生成公用秘钥，因为使用的是SSH协议传输的
+//添加远程仓库，并关联本地仓库
+git remote add origin git@github.com:GeorgeYuDong/gitlearnging.git
+git remote -v 显示所有远程仓库
+git remote rename github gh 重命名远程仓库
+git remote rm github 删除远程仓库
+git fetch origin 从远程仓库抓取数据
+git remote show origin 查看远程仓库信息
