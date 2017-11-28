@@ -132,3 +132,4 @@ git remote rename github gh 重命名远程仓库
 git remote rm github 删除远程仓库
 git fetch origin 从远程仓库抓取数据
 git remote show origin 查看远程仓库信息
+git config --global core.autocrlf false 解决crlf的问题
