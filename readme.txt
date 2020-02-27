@@ -27,3 +27,9 @@ git reset HEAD readme.txt 把暂存区的修改丢弃掉，与版本库当前版
 如果提交到远程库了，那就shit!!了
 git rm 命令把文件删除掉，并把此修改提交到暂存区，如果想找回，则git reset HEAD test.txt,把暂存区修改清除掉，然后git checkout -- test.txt 则把原文件找了回来。
 git checkout 实际上是把版本库的版本替换工作区的版本
+
+关联一个远程库:git remote add origin git@github.com:GeorgeYuDong/learngit.git
+第一次推送本地内容到远程库：git push -u origin master。以后推送不用-u参数
+分布式版本系统好处之一就是不用考虑远程库存在，没有网络可以工作。有网络提交就完成了同步。
+git clone命令，可克隆远程库到本地
+
